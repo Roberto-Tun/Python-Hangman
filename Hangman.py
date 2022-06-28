@@ -81,7 +81,6 @@ def display_hangman(lives): #function that creates the state of the hangman
         print("|______    ")
 
 def hangman():
-    tries = 0
     lives = 6 #assingning the amount of lives
     word = get_word(word_list) #assigning the word returned from the function
     Guessed_letters = [] #Empty list to stores words that have been guessed
