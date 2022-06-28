@@ -81,47 +81,63 @@ def display_hangman(lives): #function that creates the state of the hangman
         print("|______    ")
 
 def hangman():
-
+    tries = 0
     lives = 6 #assingning the amount of lives
     word = get_word(word_list) #assigning the word returned from the function
     Guessed_letters = [] #Empty list to stores words that have been guessed
     wordlist = list(word) #turning the word into a list
     hidden_word = [] #Empty list that will have '-' for the amount of letters in the word that need to be guessed
-    for letters in word: #for loop that appends '-' to the list of hidden letters for each by using the length of the word
+    for letters in wordlist: #for loop that appends '-' to the list of hidden letters for each by using the length of the word
         hidden_word.append("-") #appending the '-' in the hidden word list
 
     print("----------------------------------")
     print("--------Welcome To Hangman--------")#ui to welcome users
     print("----------------------------------")
-
-    while lives > 0: #user can guess until lives = 0
+    gameover = False
+    while gameover == False: #user can guess until gameover = True
 
         hidden_string = " ".join(hidden_word) #converting the list to a string
-
         print("You Have", lives, "lives left") #printing the amount of lives they have
         print("The word to Guess is:", hidden_string) #printing the word to guess by placing '-'
         display_hangman(lives) #function called to draw the state of the hangman
+
+
         Guessed_letter = input("Enter your Guess: ").lower() #letter the user guessed
         if Guessed_letter in wordlist and Guessed_letter.isalpha: #if that checks if the letter entered by the user is in the word list (word) and is a letter and not a int
             Guessed_letters.append(Guessed_letter) #appending the letter entered into the list that keeps track of the letters that have been guessed
-            for i in range(len(word)): #for loop that run the length of the word
+            for i in range(len(wordlist)): #for loop that run the length of the word
                 character = word[i] #assigns the letter of the word at that index and assigns it to the variable labelled 'character'
                 if character == Guessed_letter: #checks if the letter guessed is = to the 'character'
                     hidden_word[i] = word[i] #replaces the character in the hidden list where its index is = to the index of the word with the letter at that point
                     wordlist[i] = "-" #replaces the charcter at the index of the same letter with '-'
-        if Guessed_letter in Guessed_letters:
-            print("You already Guessed this letter.")
-        elif Guessed_letter not in word and Guessed_letter not in Guessed_letters:
+        elif Guessed_letter not in word and Guessed_letter not in Guessed_letters: #eluf that deacreases the lives of the user if they guessed wrong
             lives -= 1
-        else:
-            print("Invalid Input:")
+            Guessed_letters.append(Guessed_letter) #appending the letter entered into the list that keeps track of the letters that have been guessed
+        elif Guessed_letter in Guessed_letters: #checks if the word entered is in the list of guessed words
+            print("You already Guessed this letter.")
 
-    else:
-        display_hangman(lives)
-        print("You Lost")
-        print("The word was:",word)
+        if (all("-" == char for char in wordlist)): #one line for to check if the characters in the wordlist(list) are all = "-" to check if the person has won
+            gameover = True
 
+        if lives == 0: #checks if the lives is 0 to stop the loop
+            gameover = True
 
-hangman()
+    else: #else that checks if the person won or lost
+        if lives > 0:
+            print("Congrats You won") 
+        else:#else that prints the final score after you lost 
+            display_hangman(lives)
+            print("You Lost")
+            print("The word was:",word)
 
+#while loop to continue playing
+play = input("Would you like to play hangman? Enter 'Y' or 'N' ")
+while play.upper() == "Y":
+    hangman()
+    play = input("Would you like to play again? Enter 'Y' or 'N' ")
+else:
+    print("I guess your boring")
+    exit()
+
+#closing the file
 file.close() #closing the file
