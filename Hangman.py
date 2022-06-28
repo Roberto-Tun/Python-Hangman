@@ -1,5 +1,4 @@
-import random
-from turtle import hideturtle #importing the random module 
+import random #importing the random module 
 
 file = open('words.txt', 'r') #opening a text file
 f = file.readlines() #reading the lines on the text file
