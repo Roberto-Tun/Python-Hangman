@@ -86,7 +86,7 @@ def hangman():
     lives = 6 #assingning the amount of lives
     word = get_word(word_list) #assigning the word returned from the function
     Guessed_letters = [] #Empty list to stores words that have been guessed
-    WordList = list(word) #converting the word into a list
+    wordlist = list(word) #turning the word into a list
     hidden_word = [] #Empty list that will have '-' for the amount of letters in the word that need to be guessed
     for letters in word: #for loop that appends '-' to the list of hidden letters for each by using the length of the word
         hidden_word.append("-") #appending the '-' in the hidden word list
@@ -103,14 +103,14 @@ def hangman():
         print("The word to Guess is:", hidden_string) #printing the word to guess by placing '-'
         display_hangman(lives) #function called to draw the state of the hangman
         Guessed_letter = input("Enter your Guess: ").lower() #letter the user guessed
-        if Guessed_letter in word and Guessed_letter.isalpha: #if that checks if the letter entered by the user is in the word and is a letter and not a int
+        if Guessed_letter in wordlist and Guessed_letter.isalpha: #if that checks if the letter entered by the user is in the word list (word) and is a letter and not a int
             Guessed_letters.append(Guessed_letter) #appending the letter entered into the list that keeps track of the letters that have been guessed
             for i in range(len(word)): #for loop that run the length of the word
-                character = word[i] #assigns the letter of the word at that index and assigns it to the variable labelled character
-                if character == Guessed_letter:
-                    hidden_word[i] = word[i]
-                    WordList[i] = "_"
-        elif Guessed_letter in Guessed_letters:
+                character = word[i] #assigns the letter of the word at that index and assigns it to the variable labelled 'character'
+                if character == Guessed_letter: #checks if the letter guessed is = to the 'character'
+                    hidden_word[i] = word[i] #replaces the character in the hidden list where its index is = to the index of the word with the letter at that point
+                    wordlist[i] = "-" #replaces the charcter at the index of the same letter with '-'
+        if Guessed_letter in Guessed_letters:
             print("You already Guessed this letter.")
         elif Guessed_letter not in word and Guessed_letter not in Guessed_letters:
             lives -= 1
