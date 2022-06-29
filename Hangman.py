@@ -92,8 +92,8 @@ def hangman():
     print("----------------------------------")
     print("--------Welcome To Hangman--------")#ui to welcome users
     print("----------------------------------")
-    
-    while len(wordlist) > 0 and lives > 0: #user can guess until gameover = True
+    gameover = False
+    while gameover == False: #user can guess until gameover = True
 
         hidden_string = " ".join(hidden_word) #converting the list to a string
         print("You Have", lives, "lives left") #printing the amount of lives they have
@@ -108,15 +108,21 @@ def hangman():
                 character = word[i] #assigns the letter of the word at that index and assigns it to the variable labelled 'character'
                 if character == Guessed_letter: #checks if the letter guessed is = to the 'character'
                     hidden_word[i] = word[i] #replaces the character in the hidden list where its index is = to the index of the word with the letter at that point
-                    wordlist.remove(Guessed_letter)
+                    wordlist[i] = "-" #replaces the charcter at the index of the same letter with '-'
         elif Guessed_letter not in word and Guessed_letter not in Guessed_letters: #eluf that deacreases the lives of the user if they guessed wrong
             lives -= 1
             Guessed_letters.append(Guessed_letter) #appending the letter entered into the list that keeps track of the letters that have been guessed
         elif Guessed_letter in Guessed_letters: #checks if the word entered is in the list of guessed words
             print("You already Guessed this letter.")
 
+        if (all("-" == char for char in wordlist)): #one line for to check if the characters in the wordlist(list) are all = "-" to check if the person has won
+            gameover = True
+
+        if lives == 0: #checks if the lives is 0 to stop the loop
+            gameover = True
+
     else: #else that checks if the person won or lost
-        if lives > 0 and len(wordlist) == 0:
+        if lives > 0:
             print("Congrats You won") 
         else:#else that prints the final score after you lost 
             display_hangman(lives)
