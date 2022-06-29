@@ -125,6 +125,7 @@ def hangman():
     else: #else that checks if the person won or lost
         if lives > 0:
             print("Congrats You won") 
+            print("The word was:",word)
         else:#else that prints the final score after you lost 
             display_hangman(lives)
             print("You Lost")
