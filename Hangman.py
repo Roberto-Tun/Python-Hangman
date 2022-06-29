@@ -108,7 +108,7 @@ def hangman():
             for i in range(len(wordlist)): #for loop that run the length of the word
                 character = word[i] #assigns the letter of the word at that index and assigns it to the variable labelled 'character'
                 if character == Guessed_letter: #checks if the letter guessed is = to the 'character'
-                    hidden_word[i] = word[i] #replaces the character in the hidden list where its index is = to the index of the word with the letter at that point
+                    hidden_word[i] = wordlist[i] #replaces the character in the hidden list where its index is = to the index of the word with the letter at that point
                     wordlist[i] = "-" #replaces the charcter at the index of the same letter with '-'
         elif Guessed_letter not in word and Guessed_letter not in Guessed_letters: #eluf that deacreases the lives of the user if they guessed wrong
             lives -= 1
